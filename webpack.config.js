@@ -2,22 +2,34 @@ const path = require("path")
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
-	context: path.join(__dirname, "src"),
+  module: {
+    rules: [
+      {
+        test: /\.jsx?$/,
+        include: path.resolve(__dirname, 'src'),
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['env', 'react']
+          }
+        }
+      }
+    ]
+  },
 
-	entry: "./main",
+  entry: path.join(__dirname, '/src/index.js'),
+
+  mode: "development",
 
 	output: {
 		path:     path.join(__dirname, "dist"),
 		filename: "app.js"
 	},
 
-	resolve: {
-		extensions: ['', '.js']
-	},
-
   plugins: [
     new HtmlWebpackPlugin({
-      template: './src/template.html',
+      template: path.join(__dirname, '/src/index.html'),
       files: {
         js: [ "app.js"],
       }

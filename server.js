@@ -1,16 +1,15 @@
-var path = require("path"),
-    express = require("express");
+const path = require("path")
+const express = require("express")
 
-var DIST_DIR = path.join(__dirname, "dist"),
-    PORT = 3000,
-    app = express();
+const DIST_DIR = path.join(__dirname, "dist")
+const PORT = process.env.PORT
 
-//Serving the files on the dist folder
-app.use(express.static(DIST_DIR));
+const app = express()
 
-//Send index.html when the user access the web
-app.get("*", function (req, res) {
-  res.sendFile(path.join(DIST_DIR, "index.html"));
-});
+// This allows us to serve app.js
+app.use(express.static(DIST_DIR))
 
-app.listen(PORT);
+// Just send generated html file back
+app.get('/', (req, res) => res.sendFile(path.join(DIST_DIR, "index.html")))
+
+app.listen(PORT, () => console.log(`Example app listening on port ${PORT}!`))

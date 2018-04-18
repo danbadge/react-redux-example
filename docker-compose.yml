@@ -1,0 +1,12 @@
+version: '3'
+services:
+  react-redux-example:
+    build: .
+    working_dir: /usr/src/app
+    volumes:
+      - ./:/usr/src/app
+    command: bash -c 'while sleep 1; do :; done'
+    environment:
+      PORT: 3000
+    ports:
+      - "3000:3000"
